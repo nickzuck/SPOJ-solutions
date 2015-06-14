@@ -1,67 +1,53 @@
-#include <stdio.h>
-#include <string.h>
-#include<ctype.h>
+#include<iostream>
+#include<string>
+#include<algorithm>
 
-#define MAX 102
+using namespace std  ; 
 
-int main() {
 
-	char in[MAX] , out [MAX] ; 
-	int i , j , len , flag ; 
-	
-	scanf ("%s",in) ;
+int main ()
+{
+    string inp ; 
+    cin>> inp ;  
+    //cout << inp ; 
+    string :: iterator i;  
+    string ans; 
+    int flag = 0 ; 
 
-	i = 0 ;  j = 0 ; len = strlen (in) ; 
-	flag = 0 ; 
-	// converting from C++ to JAVA 
-	if(strstr(in , "_")){
-		
-		for (i = 0 ; i<len ; i++){
-			if (in[i]=='_'){
-				flag = 1 ; 
-			}
-			else {
-				if (flag){
-					flag = 0 ;
- 					out[j] = toupper(in[i]) ; 
-					j++ ; 
-				}
-				else{
-					out[j] = in[i] ; 
-					j++ ; 	
-				}
-			}
+    // Checking for C++ program 
+    if(inp.find_first_of('_') > 0 ){ 
+	for (i = inp.begin() ; i!= inp.end() ; i++){
+	        if (*i == '_'){
+		    flag = 1 ; 
+		}
+		else {
+		    if (flag == 0 )
+		        ans += *i ; 
+		    else {
+			 //string temp   ; 
+			 //ans += char((int)*(i) -  32 );
+			 transform (i, i+1 , i , ::toupper) ;   
+			 ans += *i ; 
+			 flag =  0 ;  
+			 
+		    }
 		}
 	}
-
-	// from JAVA to C++ 
-	else {
-		for (int i = 0 ; i<len ; i++){
-			if (isupper(in[i])){
-				flag = 0 ; 
-				out[j]= '_' ; 
-				j++ ;
-				out[j] = tolower(in[i]) ; 
-				 j++ ; 
-			}
-			else {
-				out[j] = in[i] ;
-				j++ ; 
-			}
-		}
-		
+	cout << ans <<endl ; 
+    } 
+    else {
+	for (i = inp.begin() ; i != inp.end() ; i++ ){
+	    if (isupper(*(i+1))){
+		cout << "Yes it is upper \n" ; 
+		ans += '_' ; 
+		ans += *i ; 
+	    }
+	    else {
+		ans +=  char((int)*(i) + 32 ) ; 
+	    }
 	}
-        j-- ; 
-	printf ("%s",out); 
-return 0;
+	cout << ans <<endl ; 
+    }
+
+return 0 ; 
 }
-
-
-
-
-/*
-    const char *str = "/user/desktop";
-    const int exists = strstr(str, "/abc/") || strstr(str, "/abc\0");
-    printf("%d\n",exists);*/
-    
-
