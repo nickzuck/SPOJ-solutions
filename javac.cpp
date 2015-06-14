@@ -13,10 +13,16 @@ int main ()
     string :: iterator i;  
     string ans; 
     int flag = 0 ; 
-
+    i = inp.begin() ; 
+    if (*(i)>65 && *(i)<91){cout << "Error!\n"; }
     // Checking for C++ program 
-    if(inp.find_first_of('_') > 0 ){ 
+    else if(inp.find('_') != -1 ){ 
 	for (i = inp.begin() ; i!= inp.end() ; i++){
+		if (*(i)>65 && *(i)<91){
+		    cout << "Error!\n" ; 
+		    break ; 
+		}
+	
 	        if (*i == '_'){
 		    flag = 1 ; 
 		}
@@ -31,19 +37,26 @@ int main ()
 			 flag =  0 ;  
 			 
 		    }
-		}
+		} 
 	}
-	cout << ans <<endl ; 
+	if (i == inp.end())
+	    cout << ans <<endl ;
+	 
     } 
+
+    // doing it for JAVA program
     else {
 	for (i = inp.begin() ; i != inp.end() ; i++ ){
-	    if (isupper(*(i+1))){
-		cout << "Yes it is upper \n" ; 
-		ans += '_' ; 
+	    if (*(i+1)>65 && *(i+1)<91){ 
 		ans += *i ; 
+		ans += '_' ; 
+		i++ ; 
+		//ans +=  char((int)*(i) + 32 ) ; 
+		transform (i, i+1 , i , ::tolower) ; 
+		ans += *i ;  
 	    }
 	    else {
-		ans +=  char((int)*(i) + 32 ) ; 
+		if (*i != '_'){ans += *i ; } 
 	    }
 	}
 	cout << ans <<endl ; 
