@@ -13,7 +13,7 @@ int main ()
 	cin >> cols ; 
 	while (cols){
 //		if (cols == 0) 
-//			break ; 
+//			break ; 	
 		cin >> string ;  
 		//cout <<" rows = " << rows << " cols = " << cols ; 
 		int length = strlen(string) ;
@@ -24,28 +24,27 @@ int main ()
 		k = 0 ; 
 
 		//cout <<" rows = " << rows << " cols = " << cols <<"length = " << length ; 
-		for (i = 1 ; i<=rows ; i++){			
+		for (i = 0 ; i<rows ; i++){			
 
 			// fill the array by moving from left to right
-			if (i%2 == 1){ 
-				for (j = 1 ; j<=cols ; j++){
+			if (i%2 == 0){ 
+				for (j = 0 ; j<cols ; j++){
 					original[i][j] = string[k++] ; 
 				}
 			}
 
 			//fill the array by moving from right to left
 			else {
-				for (j = cols ; j>0 ; j--){
+				for (j = cols-1 ; j>=0 ; j--){
 					original[i][j]= string[k++] ;
 				}
 			}
 		
 		}
 
-		cout << original << endl;
 		//print the original string to the screen
-		for (j = 1 ; j <= rows+1 ; j++) {
-			for (i = 1 ; i<=cols+1 ; i++){
+		for (j = 0 ; j <cols ; j++) {
+			for (i = 0 ; i<rows ; i++){
 				cout << original[i][j] ; 
 			}	
 		}
