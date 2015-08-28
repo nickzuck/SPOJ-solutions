@@ -15,11 +15,13 @@ int main ()
 {
 	char str[MAX];
 	int  i , even[3] , odd[3] , ans , length , temp;
-	even[0] = 0 ;
-	even[1] = 0 ; 
-	odd[0] = 0 ; 
-	odd[1] = 0 ;
-	scanf ("%s",str) ;
+	
+	//scanf ("%s",str) ;
+	while (scanf ("%s",str) != EOF){
+		even[0] = 0 ;
+		even[1] = 0 ; 
+		odd[0] = 0 ; 
+		odd[1] = 0 ;
 		length = strlen(str) ;
 		for (i = 0 ; i< length ; i++ ) {
 
@@ -51,7 +53,7 @@ int main ()
 		
 		ans = min (even[0]+odd[1], even[1] + odd[0]) ; 
 		printf ("%d\n",ans);
-
-	
+	//scanf ("%s",str) ;
+	}	
 return 0 ;
 }
