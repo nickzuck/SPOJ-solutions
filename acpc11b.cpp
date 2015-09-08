@@ -23,11 +23,12 @@ int main ()
             cin >> b[j] ; 
         }    
 
-        long long int diff ;     
+        long long int diff ;
+        min = 1000002 ;    
         for (i = 0;  i<n ; i++){
             for (j= 0 ; j<m ;j++){
-                diff = abs(a[i] - b[i]) ; 
-                if (diff < min || i == 0 ){
+                diff = abs(a[i] - b[j]) ; 
+                if (diff < min){
                     min = diff ; 
                 }
             }
