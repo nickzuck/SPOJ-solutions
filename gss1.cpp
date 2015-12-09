@@ -48,7 +48,17 @@ void build_tree(int node , int a , int b){
     int mid = getMid(a , b);
     build_tree(node*2 , a , mid);
     build_tree(node*2+1 , mid+1 , b );
-    tree[node] = max(tree[node*2] + tree[node*2 + 1] , tree[node*2] , tree[node*2 + 1]);
+    tree[node] = (tree[node*2] + tree[node*2 + 1]);
+}
+
+int queryUtil(int node , int i , int j){
+    if(i == j){ //Leaf node
+        return tree[node];
+    }
+    else{ //Other nodes
+        int mid = getMid( i , j);
+        int result = max(queryUtil(node*2 , i , mid) , queryUtil(node*2 + 1 ,mid+1 ,j) , tree[node]);
+    }
 }
 
 //Query tree
@@ -57,13 +67,13 @@ int query(int node , int a , int b , int i , int j ){
         return -inf; // Out of range
 
     if(a >= i && b <= j) // Current segment is totally within range [i, j]
-        return tree[node];
+        return queryUtil(node , i , j); 
 
     int mid = getMid(a , b);
     int q1 = query(node*2, a, mid, i, j); // Query left child
     int q2 = query(1+node*2, mid + 1, b, i, j); // Query right child
 
-    int res = max(q1, q2); // Return final result
+    int res = max(q1 , q2);// Return final result
     
     return res;
 }
