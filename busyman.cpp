@@ -1,7 +1,7 @@
 #include<iostream>
 #include<algorithm>
 
-#define MAX 1002
+#define MAX 100002
 using namespace std ;
 
 pair<int , int>  a[MAX];
