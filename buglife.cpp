@@ -1,59 +1,65 @@
-/*Doing it for un-directed graph*/
-/* This source code is taken from https://github.com/nickzuck/Data-Structures-and-Algorithms
-*/
-
 #include<iostream>
 #include<vector>
-
-#define MAX 50
+#include<queue>
 
 using namespace std ;
 
-vector <int> adj[MAX] ; 
-bool visited[MAX] ; 
+int checkGraph(vector<int> adj[], int nodes){
+    const int size = nodes ;
 
+    int color[2002] , i; 
+    for(int j = 0 ; j <= nodes; j++)
+        color[j] = -1 ;
 
-/*Initialize the boolean values to the visited part ..Since no nodes got traversed till now */
-void initialize(int nodes)
-{
-	for (int i = 1 ; i<=nodes ;i++){
-		visited[i] = false ; 		
-	}
+    // Assign the color of source
+    color[1] = 1 ; 
+    queue<int> q ;
+    q.push(1);
+
+    while(!q.empty()){
+        int u = q.front() ;
+        q.pop() ;
+
+        //Find the non colored adjacent vertices
+        for(i = 0 ; i< adj[u].size() ; i++){
+            if(color[i] == -1){
+                color[i] = 1 - color[u] ; 
+                q.push(i) ;
+            }
+
+            else if (color[i] == color[u]) {
+               // cout << "Something fissy\n" << i << " " << u ;
+               // cout << "\nColors are \t" << color[i] << "  " << color[u] << endl ;
+                return 0 ;
+            }
+        }
+        
+    }
+    return 1 ;
 }
 
-//to perform depth first search
-void dfs(int current)
+int main()
 {
-	cout << current << "\t";
-	visited[current] = true ; 
-	for(int i = 0 ; i< adj[current].size() ; i++){
-		if (visited[adj[current][i]] == false){
-			dfs(adj[current][i]) ;
-		}
-	} 
-}
+    int t,i , nodes, edges, x , y , j , ans ;
+    cin >> t ; 
+    for(i = 0 ; i < t ; i++){
+        vector<int> adj[2002] ;
+        cin >> nodes >> edges ; 
+        for(j = 0 ; j < edges ; j++){
+            cin >> x >> y ; 
+            adj[x].push_back(y) ; 
+            adj[y].push_back(x) ;
+        }
+        ans = checkGraph(adj , nodes) ;
+
+        cout << "Scenario #" << i+1  << ":"<< endl  ;
+        if(ans){
+            cout << "No suspicious bugs found!" << endl; 
+        }
+        else
+            cout << "Suspicious bugs found!" << endl ;
  
-int main ()
-{
-	int nodes , edges , x , y  , i ; 
-	cout << "Enter the total nodes in the graph\t" ;
-	cin >> nodes ; 
-	cout << "Enter the total edges of the graph\t" ;
-	cin >> edges ; 	
-	cout << "Enter the edges pairs of the graph (eg : a b)for a->b)\n" ;
-	for (i = 0 ; i <edges ; i++){
-		cin >> x >> y ; 
-		adj[x].push_back(y);
-		adj[y].push_back(x); 
-	}
+    }
 
-	initialize(nodes) ; 
-	
-	cout << "The dfs traversal sequence is given as\n" ;
-	for (i = 1 ; i<=nodes ; i++){
-		if(visited[i] == false){
-			dfs(i);
-		}
-	}
-return 0 ; 
+return 0;
 }
