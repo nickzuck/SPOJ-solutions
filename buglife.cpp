@@ -8,32 +8,36 @@ int checkGraph(vector<int> adj[], int nodes){
     const int size = nodes ;
 
     int color[2002] , i; 
+
+    queue<int> q ;
     for(int j = 0 ; j <= nodes; j++)
         color[j] = -1 ;
 
+    for(int s = 1 ; s<= nodes ; s++){
     // Assign the color of source
-    color[1] = 1 ; 
-    queue<int> q ;
-    q.push(1);
-
-    while(!q.empty()){
-        int u = q.front() ;
-        q.pop() ;
-
-        //Find the non colored adjacent vertices
-        for(i = 0 ; i< adj[u].size() ; i++){
-            if(color[i] == -1){
-                color[i] = 1 - color[u] ; 
-                q.push(i) ;
-            }
-
-            else if (color[i] == color[u]) {
-               // cout << "Something fissy\n" << i << " " << u ;
-               // cout << "\nColors are \t" << color[i] << "  " << color[u] << endl ;
-                return 0 ;
-            }
+        if(color[s] == -1){
+            color[s] = 1 ; 
+            q.push(s);
         }
+        while(!q.empty()){
+            int u = q.front() ;
+            q.pop() ;
+    
+            //Find the non colored adjacent vertices
+            for(i = 0 ; i< adj[u].size() ; i++){
+                if(color[i] == -1){
+                    color[i] = 1 - color[u] ; 
+                    q.push(i) ;
+                }
+
+                else if (color[i] == color[u]) {
+                   // cout << "Something fissy\n" << i << " " << u ;
+                    // cout << "\nColors are \t" << color[i] << "  " << color[u] << endl ;
+                    return 0 ;
+                }
+            }
         
+        }
     }
     return 1 ;
 }
