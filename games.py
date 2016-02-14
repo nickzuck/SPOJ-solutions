@@ -5,16 +5,11 @@ def gcd(a ,b):
         return gcd(b, a%b)
 
 for t in range(input()):
-    avg = input()
-    temp = str(avg).split(".")
-    #print temp
-    if len(temp) == 1 :
-        # integer number 
-        print "1"
-    else :
-        a = len(temp[1])
-        n1 = 10 ** a
-        if a== 2 or a== 4:
-            n1 -= 1
-        n2 = avg*n1
-        print n1/gcd(n1, n2)
+    avg = raw_input()
+    pos = avg.find(".")
+    if pos == -1 :
+        print 1
+    else:
+        p = 10 ** (len(avg)-pos-1)
+        score = int(avg[:pos] + avg[pos+1:])
+        print p/gcd(p, score)
