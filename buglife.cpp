@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-#include<queue>
+#include<stack>
 
 using namespace std ;
 
@@ -9,7 +9,7 @@ int checkGraph(vector<int> adj[], int nodes){
 
     int color[2002] , i; 
 
-    queue<int> q ;
+    stack<int> q ;
     for(int j = 0 ; j <= nodes; j++)
         color[j] = -1 ;
 
@@ -20,7 +20,7 @@ int checkGraph(vector<int> adj[], int nodes){
             q.push(s);
         }
         while(!q.empty()){
-            int u = q.front() ;
+            int u = q.top() ;
             q.pop() ;
     
             //Find the non colored adjacent vertices
