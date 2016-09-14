@@ -13,16 +13,21 @@ def solve(idx, wasZero, n):
 
 # This solution must give runtime error, 
 # due to maximum recursion depth limit exceeded
-fib = [0 for i in range(10002)]
+fib = [0 for i in range(100002)]
 fib[0] = 1 
 fib[1] = 2
 fib[2] = 3
+lastFound = 2
 def fibonacci(n):
     c1 = fib[n]
     if c1 == 0:
-        fib[n] = fibonacci(n-1) + fibonacci(n-2) 
-    return fib[n]
-
+        for i in range(lastFound+1, n+1):
+            fib[i] = fib[i-1] + fib[i-2]
+        c1 = fib[n]
+        return c1
+    else :
+        return c1
+        
 # The above code will give the answer as the 
 #fibonacci series so we should calculate the fibonacci 
 n = input()
