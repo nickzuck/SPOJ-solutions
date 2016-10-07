@@ -67,7 +67,7 @@ void pv(vector<int> a, int n){
     }
     cout << endl ;
 }
-
+/*
 int LCP(int i,int j,int n)
 {
     int res = 0;
@@ -81,33 +81,47 @@ int LCP(int i,int j,int n)
             j += 1<<stp;
         }
     return res;
-}
-int LCParray(char s[],vector<int> p[],int n)
+}*/
+int lcp(char s[],vector<int>d,int n)
 {
-    int sum = 0;
-    for(int i = 1 ; i < n ; i++)
-        sum += (LCP(p[i-1],p[i],n));
-    return sum;
+    long long  i, j , k ; 
+    long long count = 0 ; 
+    char *z = s , *y = s;
+    long long  p[50005] = {0} ;
+    for(i = 1, k = 0 ; i <n ; i++ , k = 0 ){
+        //cout << d[i] <<"   " << d[i-1] << endl ;
+        z = s + d[i] ; 
+        //cout << " ---------- i = " << i << "---------" << endl ;
+        //cout << "z == " << z << endl ;
+        y = s + d[i-1] ; 
+        //cout << "y = " <<   y << endl ;
+        //cout << "count = " << count << endl ;
+        //cout << "p[i] = " << p[i] << endl ;
+        while(*z  == *y ){
+            p[i] ++ ;
+            z ++ ; 
+            y ++ ;
+        }
+        count += p[i];
+    }
+    return count ; 
 }
 
 
 int main()
 {
     char txt[100001];   
-    int t ;
+    long long int t ;
     cin >> t ; 
     while(t--){
        cin >> txt ;
-       int n = strlen(txt);
+       long long int n = strlen(txt);
        vector<int> suffixArray;
        suffixArray =  buildSuffixArray(txt, n);
-        long long lcpSum = 0 , suffixSum =  0 ; 
-        lcpSum = LCParray(txt, suffixArray, n);
-       for(int i = 0 ;i < n; i++){
-            suffixSum += suffixArray[i];
-        }
-        cout << (long long) n*n - lcpSum - suffixSum ;
-       pv(suffixArray, n);
+       long long lcpSum = 0 , suffixSum =  0 ; 
+       lcpSum = lcp(txt ,suffixArray, n);
+       cout << (n*(n+1))/2 - lcpSum  << endl ;
+       //pv(suffixArray, n);
     }
 return 0 ;
 }
