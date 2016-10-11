@@ -1,68 +1,56 @@
-/*Doing it for un-directed graph*/
-/*This code is taken from https://github.com/nickzuck/Data-Structures-and-Algorithms*/
+// APPROACH: Use BFS + BFS, first to find the farthest leaf node and then
+// to find the length of the path 
+#include<bits/stdc++.h>
 
-#include<iostream>
-#include<vector>
-
-#define MAX 10002
-
+#define MAX 10001
 using namespace std ;
 
-vector <int> adj[MAX] ; 
-bool visited[MAX] ; 
+vector<int> graph[MAX+1] ; 
+bool visited[MAX+1];
+pair<int, int> maxPair; // Pair to store the maximum weight and node for that
 
+void BFS(int x){
+    int node, wt ;
+    queue<pair<int, int> > q ;
+    maxPair = make_pair(0, 0);
+   // cout << "maxx pair values " << maxPair.first << "  " << maxPair.second << endl ;
+    q.push(make_pair(x,0));
+    while(!q.empty()){
+        node = q.front().first ;
+        wt = q.front().second ;       
+       // cout << node << "  " << wt << endl ;
+        visited[node] = true;
+        q.pop() ;
+        for(int i = 0; i < graph[node].size() ; i++){
+            if(!visited[graph[node][i]]){
+                q.push(make_pair(graph[node][i], wt+1)) ;
+            }
+        }
 
-/*Initialize the boolean values to the visited part ..Since no nodes got traversed till now */
-void initialize(int nodes)
-{
-	for (int i = 1 ; i<=nodes ;i++){
-		visited[i] = false ; 		
-	}
+        if(maxPair.first < wt){
+            maxPair.first = wt ;
+            maxPair.second = node;
+        }
+    }
 }
 
-//to perform depth first search
-
-int count = 0; 
-
-void dfs(int current)
+int main()
 {
-	//cout << current << "\t";
-	count ++ ; 
-	visited[current] = true ; 
-	for(int i = 0 ; i< adj[current].size() ; i++){
-		if (visited[adj[current][i]] == false){
-			dfs(adj[current][i]) ;
-		}
-	}
-}
- 
-int main ()
-{
-	int nodes , edges , x , y  , i ; 
-	//cout << "Enter the total nodes in the graph\t" ;
-	cin >> nodes ; 
-	//cout << "Enter the total edges of the graph\t" ;
-	//cin >> edges ; 	
-	//cout << "Enter the edges pairs of the graph (eg : a b)for a->b)\n" ;
-	for (i = 0 ; i <nodes-1; i++){
-		cin >> x >> y ; 
-		adj[x].push_back(y);
-		adj[y].push_back(x); 
-	}
-
-	initialize(nodes) ; 
-	int max_count =  0 ;
-	//cout << "The dfs traversal sequence is given as\n" ;
-	for (i = 1 ; i<=nodes ; i++){
-		if(visited[i] == false){
-			dfs(i);
-		}
-		if (count > max_count){
-			max_count = count ;
-		}
-		count = 0; 
-		initialize(nodes);
-	}
-	cout << max_count-1 << endl ; 
-return 0 ; 
+    int i , j, x, y ;    
+    int n ;
+    cin >> n ; 
+    for(i = 0; i < n-1 ; i++){
+        cin >> x >> y ; 
+        graph[x].push_back(y); 
+        graph[y].push_back(x) ;
+    }
+       
+    //cout << "Processing\n";
+    memset(visited, 0, sizeof(visited));
+    BFS(1);
+    memset(visited, 0, sizeof(visited));
+    BFS(maxPair.second);
+    cout << maxPair.first <<endl;
+    
+return 0 ;
 }
