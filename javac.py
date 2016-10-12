@@ -44,27 +44,17 @@ while True:
 
     # Java Program 
     else:
-        ans = []
         valid = True
-        emptyAns = True
-        n = len(s)
-        i = 0
-        while i < n :
-            if s[i].isupper():
-                if emptyAns:
-                    valid = False
-                    break
-                else:
-                    ans.append("_")
-                    ans.append(s[i].lower())
+        if s[0].isupper():
+            valid = False
+        ans = ''
+        for i in s:
+            if i.isupper():
+                ans += '_' + i.lower()
             else:
-                emptyAns= False
-                ans.append(s[i])
-            # increment for the loop
-            i += 1
-
+                ans += i
         # Print the answer
         if valid :
-            print "".join(ans)
+            print ans
         else:
             print "Error!"
