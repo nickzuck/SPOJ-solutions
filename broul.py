@@ -1,7 +1,7 @@
 def calculate(diff, amount):
     valid = True
     if diff == 0:
-        ans = 2
+        ans = 0
     elif diff % amount == 0:
         moves = diff /amount
         ans = moves/3
