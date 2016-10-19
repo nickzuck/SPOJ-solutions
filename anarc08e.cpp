@@ -11,11 +11,14 @@ int main ()
         if (a == -1 && b == -1)
 	    break ;
         if (a == 0 and b == 0)
-	    cout<< "0+0!=0" ; 
+	        cout<< "0+0!=0\n" ; 
         else{
-	    int c = a + b ; 
-	    cout<< a << "+" << b <<"=" << c <<endl;
-	}
+    	    if(a == 1 || b == 1){ 
+        	    cout<< a << "+" << b <<"=" << a+b <<endl;
+            }
+            else
+                cout << a << "+" << b << "!=" << a+b << endl;
+	    }
     }
 return 0 ; 
 } 
