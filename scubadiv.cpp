@@ -20,8 +20,8 @@ int main()
 
         // Processing
         int dp[2][t+1][a+1];
-        for(int i = 0 ;i < t ; i++){
-            for(int j = 0 ; j < a ; j++){
+        for(int i = 0 ;i <=t ; i++){
+            for(int j = 0 ; j <= a ; j++){
                 dp[1][i][j] = 800000;
             }
         }
