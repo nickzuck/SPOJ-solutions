@@ -18,7 +18,7 @@ int sodFunc(int n){
 int main()
 {
     int sod ; 
-    for(int i = 1; i<=MAX-2; i++){
+    for(int i = 1; i<=MAX-3; i++){
         if(a[i] == 0)
             printf("%d\n", i);
         sod = sodFunc(i);
