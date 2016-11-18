@@ -87,7 +87,7 @@ int main()
     while(t--){
         cin >> priceForOne;
         cin >> n >> m ;
-        initialize(m);
+        initialize(n);
         //pa(parent, m+1);
         for(int i = 0 ; i< m ; i++){
             cin >> x >> y >> p ;
