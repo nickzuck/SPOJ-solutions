@@ -30,15 +30,16 @@ ll knapsack (ll value[] , ll wt[] , ll n , ll maxW)
         knap[1][j] = 0 ; 
         knap[0][j] = 0 ;
     }
-
+    bool storeModulo;
     for (j = 1 ; j<=n ; j++) {
         for (w = 1 ; w <= maxW ; w++) {
+            storeModulo = j%2 ;
             if (wt[j-1] > w) { // we use j-1 because  the array contains the value from the 0 index
-                knap[j%2][w] = knap[j%2?0:1][w-1]; /* the current weight of the item is greater than the size the knapsack can hold*/
+                knap[storeModulo][w] = knap[storeModulo?0:1][w-1]; /* the current weight of the item is greater than the size the knapsack can hold*/
             }
 
             else {
-                knap[j%2][w] = max(knap[j%2?0:1][w-wt[j-1]] +value[j-1] , knap[j%2?0:1][w]) ;  /* either the item j is needed to achieve the max value or it's not needed*/
+                knap[storeModulo][w] = max(knap[storeModulo?0:1][w-wt[j-1]] +value[j-1] , knap[storeModulo?0:1][w]) ;  /* either the item j is needed to achieve the max value or it's not needed*/
             }
         }
     }
