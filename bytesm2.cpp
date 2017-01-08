@@ -23,22 +23,23 @@ int main()
             dp[0][i] = arr[0][i];
         }
 
+        int ans = -1 ;
         for(int i = 1 ; i < h ; i++ ){
             for(int j = 0; j < w ; j ++){
-                if(j  != 0 ){
+                if(j > 0 and j <w-1 ){
                     dp[i][j] = max(dp[i-1][j-1], 
                                     max(dp[i-1][j],
                                         dp[i-1][j+1])) + arr[i][j];
                 }
 
-                else{
+                else if(j< w-1){
                     dp[i][j] = max(dp[i-1][j], dp[i-1][j+1]) + arr[i][j];
                 }
+                else if(j > 0){
+                    dp[i][j] = max(dp[i-1][j], dp[i-1][j-1]) + arr[i][j];
+                }
+                ans = max(ans, dp[i][j]) ;
             }
-        }
-        int ans ; 
-        for(int j = 0 ; j < w ; j++){
-            ans = max(ans, dp[h-1][j]);
         }
         cout << ans << endl ;
     }
