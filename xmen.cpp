@@ -8,30 +8,27 @@ int main()
     cin >> t;
     while(t--){
         cin >> n ;
-        int arr[n+1], brr[n+2] ;
+        int temp; 
+        vector<int > dp(n+1), a(n+1);
         for(int i = 0 ; i < n ; i++){
-            cin >> arr[i] ; 
+            cin >> temp;
+            dp[temp] = i;
         }
         for(int i = 0 ;i < n ; i++){
-            cin >> brr[i];
+            cin >> temp ;
+            a[i]= dp[temp];
         }
-        int dp[2][n+2] ;
-        
-        for(int i = 0 ; i < n ; i++){
-            dp[0][i] = 0;
-            dp[1][i] = 0;
+        vector<int> ans(n+1, 1000000000);
+
+        for(int i = 0 ;i < n ; i++){
+            *lower_bound(ans.begin(), ans.end(), a[i]) = a[i] ;
         }
-    
-        // find the lcs
-        for(int i = 1 ;i <= n ; i++){
-            for(int j = 1 ; j <= n ; j++){
-                if(arr[i-1] == brr[n-j]){
-                    dp[i&1][j] = dp[!(i&1)][j-1] + 1;
-                }
-                else
-                    dp[i&1][j] = max(dp[!(i&1)][j], dp[i&1][j-1]);
+
+        for(int i = 0 ;i <=n ;i++){
+            if(ans[i] == 1000000000){ // till the time there are elements of array
+                cout << i << endl ;
+                break ;
             }
         }
-        cout << max(dp[0][n], dp[1][n]) << endl;
     }
 }
