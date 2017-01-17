@@ -5,37 +5,36 @@ using namespace std ;
 int dp[MAX][MAX]  ;
 int solve(int n, int k ){
     cout << n << " " << k << endl ;
-    if(k == 0 ||  n == 0 ){
-        return 0 ;
+    if(k == 1){
+        cout << "k = 1 \n";
+        return 1 ;
     }
+    if(n == 0){
+        cout << "n = 0\n";
+        return 1 ;
+    }
+    if(k == 0)
+        return 0;
     if(k >n){
+        cout << " k > n \n";
         dp[n][k] = 0 ;
         return 0 ;
     }
-    if(k == n ) {
-        dp[n][k] = 1;
-        return 1 ;
-    }
-    if(dp[n][k] != 0)
+    if(dp[n][k] != 0){
+        cout << "returning" << dp[n][k] << endl;
         return dp[n][k];
+    }
     else{
-        int curr = 0 ;
-        int limit ;
-        if(n%2 == 0){
-            limit = n/2 ;
+        dp[n][k] = 0 ;
+        int ans = 0 ;
+        cout << "In else loop for n = "<< n << " k = " << k << endl ;
+        for(int j = 0 ; j<= k ; j++){
+            cout << "in foor loop\n";
+            ans += solve(n-k, j);
         }
-        else{
-            limit = n/2 ;
-        }
-        cout << "n = " << n << endl ;
-        cout << "limit  = " << limit << endl ;
-        for(int i = 1 ;i <=limit ;  i++){
-            //cout << "in for loop --> i = " << i << endl ; 
-            curr = solve(n-i, k-1) ;
-            cout << "value = " << curr << endl ;
-            dp[n][k]  +=  curr ;
-            cout << "after call " << n-i << "  " << k-1 << "  " << i << endl ;
-        } 
+        cout << "after for loop for n = "<< n << " k = " << k << endl ; 
+        cout << "ans = " << ans << endl ;
+        dp[n][k] = ans ;
     }
     return dp[n][k];
 }
