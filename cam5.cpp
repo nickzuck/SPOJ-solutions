@@ -5,11 +5,13 @@
 #define pb push_back
 using namespace std ;
 
+vector<int> graph[MAX];
 bool visited[MAX];
 
 void initialize(int n){
     for(int i = 0 ; i < n ; i++){
         visited[i] = false ;
+        graph[i].clear();
     }
 }
 
@@ -39,7 +41,7 @@ int main()
     cin >> t ; 
     while(t--){
         cin >> n ;
-        vector<int> graph[n];
+        initialize(n);
         int e, a, b ;
         cin >> e ;
         for(int i = 0 ;i < e; i++){
@@ -48,7 +50,6 @@ int main()
             graph[b].push_back(a);
         }
         
-        initialize(n);
         // Processing
         int count = 0;
         for(int i = 0 ;i < n ; i++){
