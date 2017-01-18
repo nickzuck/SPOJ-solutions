@@ -18,9 +18,9 @@ int solve(int i, int j){
         int ans ;
         ans = arr[i][j] ;
         switch(j){
-            case 0: ans += min(solve(i+1, j+1), solve(i+1, j));
+            case 0: ans += min(solve(i+1, j+1), min(solve(i+1, j), solve(i, j+1)));
                     break ;
-            case 1: ans += min(solve(i+1, j+1), min(solve(i+1, j-1), solve(i+1, j)));
+            case 1: ans += min(solve(i+1, j+1), min(min(solve(i+1, j-1), solve(i+1, j)), solve(i,j+1)));
                     break ;
             case 2: ans += min(solve(i+1, j-1), solve(i+1, j));
                     break ;
@@ -44,7 +44,7 @@ int main(){
         }
         int i=0, j=1;
         
-        cout << counter << ". " << arr[0][1] +  min( solve(i+1, j-1), min(solve(i+1,j), solve(i+1,j+1))) <<endl;
+        cout << counter << ". " << arr[0][1] +  min( solve(i+1, j-1), min(solve(i+1,j), min(solve(i+1,j+1), solve(i, j+1)))) <<endl;
     }
 return 0;
 }
