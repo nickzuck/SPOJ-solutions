@@ -8,9 +8,13 @@ int dp[MAX][4];
 int n;
 
 int solve(int i, int j){
-    if(i==n-1){
-        return arr[i][1];
+    if(i==n-1 and j == 0){
+        return arr[i][j] + arr[i][1];
     }
+    if(i == n-1 and j == 2)
+        return INT_MAX;
+    if(i == n-1 and j == 1)
+        return  arr[i][1];
     if( dp[i][j] != -1){
         return dp[i][j] ;
     }
